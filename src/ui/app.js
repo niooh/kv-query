@@ -1,13 +1,13 @@
+import { load, getEntries, getFreqMap, addFreq } from '../core/data.js';
+import { runCommand } from '../cli/commands.js';
+import { renderPanel } from './panelView.js';
+
 /**
  * 应用实例创建、状态管理、全局控制
  */
 
-import { load, getEntries, getFreqMap, addFreq } from '../core/data.js';
-import { runCommand } from '../cli/commands.js';
-import { renderPanel, parseText, escapeKey, formatEntry } from './panelView.js';
-
 export function createApp(root) {
-  // ---------- 状态 ----------
+  // 状态
   const state = {
     entries: [],
     freqMap: {},
@@ -16,7 +16,7 @@ export function createApp(root) {
     showEditor: null,  // 编辑器回调，为 null 时显示普通面板
   };
 
-  // ---------- app 实例 ----------
+  // app 实例
   const app = {
     state,
 

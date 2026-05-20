@@ -1,80 +1,5 @@
-/**
- * 面板内容渲染，以及文本解析/格式化工具
- */
-
 import { addFreq } from '../core/data.js';
-
-const SEP = ' | ';
-
-// ---------- 文本解析（来自原项目 parser.js） ----------
-
-function parseLine(line) {
-  const trimmed = line.trim();
-  if (!trimmed || trimmed.startsWith('//')) return null;
-
-  let i = 0;
-  while (i < trimmed.length && trimmed[i] === ' ') i++;
-  if (i >= trimmed.length || trimmed[i] !== '"') return null;
-
-  i++;
-  let key = '';
-  let escaped = false;
-
-  for (; i < trimmed.length; i++) {
-    const c = trimmed[i];
-    if (escaped) {
-      key += c;
-      escaped = false;
-      continue;
-    }
-    if (c === '\\') { escaped = true; continue; }
-    if (c === '"') { i++; break; }
-    key += c;
-  }
-
-  const value = trimmed.slice(i).trim();
-  return { key, value };
-}
-
-export function parseText(text) {
-  const lines = text.split('\n');
-  const tags = [];
-  const freqs = {};
-  let inFreq = false;
-
-  for (const rawLine of lines) {
-    const trimmed = rawLine.trim();
-    if (trimmed === '---') { inFreq = true; continue; }
-
-    const parsed = parseLine(trimmed);
-    if (!parsed) continue;
-
-    if (inFreq) {
-      const n = parseInt(parsed.value, 10);
-      if (!isNaN(n) && n > 0) freqs[parsed.key] = n;
-    } else {
-      tags.push(parsed);
-    }
-  }
-
-  return { tags, freqs };
-}
-
-export function escapeKey(key) {
-  return key.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-}
-
-export function formatEntry(key, value) {
-  return `"${escapeKey(key)}" ${value}`;
-}
-
-// UI 渲染
-
-function esc(str) {
-  const d = document.createElement('div');
-  d.textContent = str;
-  return d.innerHTML;
-}
+import { escapeHTML } from '../core/kvFormat.js';
 
 /**
  * 渲染主面板
@@ -99,7 +24,7 @@ export function renderPanel(app, container) {
     }
   }
 
-  // 显示结果列表（如果有）
+  // 显示结果列表
   const results = app.state.results;
   if (results && results.length) {
     // 按频率排序
@@ -109,17 +34,31 @@ export function renderPanel(app, container) {
 
     for (const e of sorted) {
       const div = document.createElement('div');
-      div.className = 'entry';
-      div.innerHTML = `<span class="key">${esc(e.k)}</span><span class="sep"> : </span><span class="val">${esc(e.v)}</span>`;
+      div.innerHTML = `<span class="key">${escapeHTML(e.k)}</span><span class="sep"> : </span><span class="val">${escapeHTML(e.v)}</span>`;
 
+      // 点击复制 + 频率 + 闪烁反馈
       div.addEventListener('click', () => {
-        navigator.clipboard.writeText(e.v).catch(() => {});
-        addFreq(e.k);
-        // 反馈闪烁
-        div.classList.add('flash');
-        setTimeout(() => div.classList.remove('flash'), 150);
-      });
+        // 复制逻辑（使用 execCommand 确保兼容）
+        const ta = document.createElement('textarea'); // textarea 可以保留换行等
+        ta.value = e.v;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+        } catch (err) {
+          console.error('Copy failed:', err);
+        }
+        document.body.removeChild(ta);
 
+        addFreq(e.k);
+
+        // 闪烁反馈
+        div.style.opacity = '0.55';
+        setTimeout(() => { div.style.opacity = ''; }, 200);
+      });
+    
       container.appendChild(div);
     }
   } else if (!logs.length) {

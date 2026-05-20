@@ -26,13 +26,6 @@ html, body { height: 100%; background: #1e1e1e; color: #d4d4d4; }
 
 .panel > div { padding: 1px 14px; }
 
-.panel .entry {
-  cursor: pointer; user-select: none;
-  transition: opacity 0.12s;
-}
-
-.panel .entry:hover { background: #2a2d2e; }
-.panel .entry.flash { opacity: 0.55; }
 .panel .key { color: #569cd6; }
 .panel .sep { color: #6a6a6a; }
 .panel .val { color: #ce9178; }
@@ -68,6 +61,4 @@ html, body { height: 100%; background: #1e1e1e; color: #d4d4d4; }
 }
 
 .btn-save { background: #0e639c; color: #fff; }
-.btn-save:hover { background: #1177bb; }
 .btn-cancel { background: #3c3c3c; color: #d4d4d4; }
-.btn-cancel:hover { background: #4a4a4a; }
