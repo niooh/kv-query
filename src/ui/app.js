@@ -24,7 +24,7 @@ export function createApp(root) {
 
     clearLogs() {
       state.logs = [];
-      appendPanel.clear();
+      appendLog.clear();
     },
   
     // 渲染条目

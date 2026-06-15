@@ -11,6 +11,7 @@ This project handles exactly those scenarios: ***get the results you want with m
 
 - Easy-to-write key-value entries, e.g., `"tag1 | tag2" value`
 - Strict or partial keyword search with AND/OR logic
+- High performance: supports rapid querying and rendering of tens of thousands of entries.
 - **Web UI**: single HTML with a command-line-like interface.
 - **Terminal CLI**: single native binary.
 > **Note:** The Web UI and Terminal CLI are independent, optional interfaces — you do not need to set up both.
@@ -80,6 +81,7 @@ Type commands into the input box, then results appear below.
 | `get -c [terms]` | Contains match, OR logic |
 | `get -ca [terms]` | Contains match, AND logic |
 | `add <key> <value>` | Add a new entry to the end |
+| `clear` | Clear all panel output |
 | `edit` | Open a textarea with the full data for manual editing |
 | `import` | Replace (`-a` to append) data from a file or an editor |
 | `export` | Download as `kv_data.txt` or copy to clipboard |

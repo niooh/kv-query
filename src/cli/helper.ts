@@ -32,7 +32,7 @@ examples:
   ls: {
     summary: 'list all entries (alias for `get -a`)',
     usage: 'ls',
-    desc: ``,
+    desc: '',
   },
 
   add: {
@@ -41,6 +41,12 @@ examples:
     desc: `examples:
   add "simple" "value"
   add "tag1 | tag2" new content`,
+  },
+
+  clear: {
+    summary: 'clear all panel output',
+    usage: 'clear',
+    desc: '',
   },
 
   edit: {
