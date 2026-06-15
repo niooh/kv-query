@@ -13,8 +13,9 @@
     "build:index": "node scripts/build_index.js",
     "build:bin": "nim c -d:release --out:dist/kv_query --mm:orc --passL:\"-s\" src/terminal/main.nim",
     "build:nim": "npm run translate && npm run build:bin",
+    "build:txt": "nim r scripts/build_test_txt_for_web_ui.nim",
     "js2nim": "node scripts/js_data_to_nim.js",
-    "nim2js": "nim r --usenimcache scripts/nim_data_to_js.nim",
+    "nim2js": "nim r scripts/nim_data_to_js.nim",
     "query": "./dist/kv_query",
     "preview": "vite preview"
   },

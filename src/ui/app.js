@@ -1,12 +1,13 @@
-import { load } from '../core/data.ts';
+import { addFreq, load } from '../core/data.ts';
+import { escapeHTML } from '../core/kvFormat.ts';
 import { runCommand } from '../cli/commands.ts';
-import { renderPanel } from './panelView.js';
+import { setupPanel } from './panelView.js';
+import { copyText } from './utils.ts';
 
 export function createApp(root) {
-  const state = {
-    logs: [],
-    results: [], // 当前搜索结果
-  };
+  const state = { logs: [] };
+  const panel = document.getElementById('panel');
+  const appendLog = setupPanel(panel);
 
   const app = {
     state,
@@ -14,14 +15,23 @@ export function createApp(root) {
     // 输出日志
     log(msg) {
       state.logs.push(msg);
-      if (state.logs.length > 500) state.logs.shift();
+      appendLog(msg);
     },
 
-    // 用于显示带有点击复制功能的条目列表
-    setResults(entries) {
-        state.results = entries;
+    logInfo(msg) {
+      this.log(`<div class="info">${escapeHTML(msg)}</div>`);
     },
 
+    clearLogs() {
+      state.logs = [];
+      appendPanel.clear();
+    },
+  
+    // 渲染条目
+    renderEntries(entries) {
+      appendLog(entries);
+    },
+   
     // 弹出全屏编辑器
     showEditor(text, onSave) {
       const overlay = document.createElement('div');
@@ -51,18 +61,10 @@ export function createApp(root) {
       btnSave.onclick = () => {
         onSave(ta.value);
         overlay.remove();
-        app.render();
       };
       btnCancel.onclick = () => {
         overlay.remove();
-        app.render();
       };
-    },
-
-    render() {
-      const panel = document.getElementById('panel');
-      if (!panel) return;
-      renderPanel(app, panel);
     },
   };
 
@@ -80,8 +82,5 @@ export function createApp(root) {
     await runCommand(app, line);
     input.focus();
   });
-
-  // 首次渲染
-  app.render();
   return app;
 }

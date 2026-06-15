@@ -13,22 +13,22 @@ import {
   mergeFreq,
 } from '../core/data.ts';
 import { search } from '../core/query.ts';
-import { escapeKVKey, parseFullText } from '../core/kvFormat.ts';
+import { escapeHTML, escapeKVKey, parseFullText } from '../core/kvFormat.ts';
 import { copyText, downloadText, pickTextFile } from '../ui/utils.ts';
 
 // 应用上下文接口
 export interface App {
   state: {
     logs: string[];
-    results: { k: string; v: string }[];
   };
   log(msg: string): void;
-  setResults(entries: { k: string; v: string }[]): void;
+  logInfo(msg: string): void;
+  renderEntries(entries: { k: string; v: string }[]): void;
+  clearLogs(): void;
   showEditor(text: string, onSave: (newText: string) => void): void;
-  render(): void;
 }
 
-// 搜索命令
+/** 搜索命令 */
 function cmdGet(app: App, args: string[]) {
   const opt = args[0];
   const terms = args.slice(1);
@@ -43,14 +43,16 @@ function cmdGet(app: App, args: string[]) {
     default: throw new Error(`unknown option: ${opt}\n${usageOf('get')}`);
   }
 
-  // 按频率排序，设置到结果区（面板渲染）
   const freqMap = getFreqMap();
-  const sorted = [...results].sort((a, b) => (freqMap[b.k] || 0) - (freqMap[a.k] || 0));
-  app.setResults(sorted);
+  const sorted = [...results].sort(
+    (a, b) => (freqMap[b.k] || 0) - (freqMap[a.k] || 0)
+  );
 
   if (!sorted.length) {
-    app.log('no results');
+    app.logInfo('no results');
+    return;
   }
+  app.renderEntries(sorted);
 }
 
 /** 添加条目 */
@@ -64,7 +66,7 @@ function cmdAdd(app: App, args: string[]) {
   const line = `"${escapeKVKey(key)}" ${value}`;
   const current = getRawEntries();
   setRawEntries(current ? current + '\n' + line : line);
-  app.log(`added 1 entry`);
+  app.logInfo('added 1 entry');
 }
 
 /** 编辑命令：弹出编辑器，让用户修改标签区和频率 */
@@ -94,8 +96,7 @@ function cmdEdit(app: App) {
     if (invalidLines.length) {
       msg += `\nskipped:\n${invalidLines.join('\n')}`;
     }
-    app.log(msg);
-    app.render();
+    app.logInfo(msg);
   });
 }
 
@@ -137,8 +138,7 @@ async function cmdImport(app: App, args: string[]) {
   if (invalidLines.length) {
     msg += `\nskipped:\n${invalidLines.join('\n')}`;
   }
-  app.log(msg);
-  app.render();
+  app.logInfo(msg);
 }
 
 // 导出命令
@@ -156,10 +156,10 @@ function cmdExport(app: App, args: string[]) {
 
   if (!args.length || args[0] === '-f') {
     downloadText(fullText, 'kv_data.txt');
-    app.log('exported as kv_data.txt');
+    app.logInfo('exported as kv_data.txt');
   } else if (args[0] === '-c') {
     copyText(fullText);
-    app.log('copied to clipboard.');
+    app.logInfo('copied to clipboard.');
   } else {
     throw new Error(`unknown option: ${args[0]}\n${usageOf('export')}`);
   }
@@ -169,9 +169,9 @@ function cmdExport(app: App, args: string[]) {
 function cmdHelp(app: App, args: string[]) {
   const name = args[0];
   if (name) {
-    app.log(commandHelpText(name));
+    app.logInfo(commandHelpText(name));
   } else {
-    app.log(allHelpText());
+    app.logInfo(allHelpText());
   }
 }
 
@@ -180,15 +180,11 @@ export async function runCommand(app: App, line: string) {
   const { name, args } = parseCommand(line);
   if (!name) return;
 
-  // 重置结果，避免旧数据被非搜索命令展示
-  app.state.results = [];
-
-  app.log(`> ${line}`);
+  app.log(`<div class="cmd">&gt; ${escapeHTML(line)}</div>`); // 回显命令
 
   try {
     if (name !== 'help' && args.includes('-h')) {
-      app.log(commandHelpText(name));
-      app.render();
+      app.log(`<div class="help">${escapeHTML(commandHelpText(name))}</div>`);
       return;
     }
 
@@ -214,13 +210,14 @@ export async function runCommand(app: App, line: string) {
       case 'export':
         cmdExport(app, args);
         break;
+      case 'clear':
+        app.clearLogs();
+        break;
       default:
         throw new Error(`unknown command: ${name}\ntype \`help\` to see available commands.`);
     }
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    app.log(`error: ${message}`);
-  } finally {
-    app.render();
+    app.log(`<div class="err">error: ${escapeHTML(message)}</div>`);
   }
 }
