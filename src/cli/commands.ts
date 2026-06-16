@@ -153,10 +153,11 @@ function cmdExport(app: App, args: string[]) {
   
   // 拼接：原始文本 + --- + 频率行
   const fullText = getRawEntries() + '\n---\n' + freqLines.join('\n');
-
+  const filename = `kv_data_${new Date().toISOString().slice(0, 10)}.txt`; // 带 YYYY-MM-DD 后缀
+  
   if (!args.length || args[0] === '-f') {
-    downloadText(fullText, 'kv_data.txt');
-    app.logInfo('exported as kv_data.txt');
+    downloadText(fullText, filename);
+    app.logInfo(`exported as ${filename}`);
   } else if (args[0] === '-c') {
     copyText(fullText);
     app.logInfo('copied to clipboard.');

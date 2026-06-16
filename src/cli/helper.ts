@@ -110,7 +110,7 @@ examples:
     desc: `default: -f
 
 options:
-  -f     download as kv_data.txt
+  -f     download as kv_data_YYYY-MM-DD.txt
   -c     copy to clipboard
 
 examples:

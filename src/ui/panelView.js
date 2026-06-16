@@ -12,7 +12,7 @@ export function setupPanel(container) {
     const div = e.target.closest('.entry');
     if (!div || !container.contains(div)) return;
 
-    // 直接从 DOM 上取数据，不再依赖外部数组
+    // 从 DOM 上取数据
     const key = div.dataset.key;
     const value = div.dataset.value;
     if (key === undefined || value === undefined) return;
@@ -49,11 +49,9 @@ export function setupPanel(container) {
         const e = entries[i];
         const div = document.createElement('div');
         div.className = 'entry';
-
         // 将键和值直接写入 dataset
         div.dataset.key = e.k;
         div.dataset.value = e.v;
-
         div.innerHTML = `<span class="key">${escapeHTML(e.k)}</span>  ${escapeHTML(e.v)}`;
         frag.appendChild(div);
       }

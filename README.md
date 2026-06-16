@@ -84,7 +84,7 @@ Type commands into the input box, then results appear below.
 | `clear` | Clear all panel output |
 | `edit` | Open a textarea with the full data for manual editing |
 | `import` | Replace (`-a` to append) data from a file or an editor |
-| `export` | Download as `kv_data.txt` or copy to clipboard |
+| `export` | Download as `.txt` or copy to clipboard |
 
 Click on a result value to copy it to the clipboard and increase its frequency automatically, and most‑used entries will rise to the top.<br>
 Use `help <command>` (e.g. `help edit`) to see full details and examples for each command.
