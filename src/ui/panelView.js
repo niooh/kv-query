@@ -6,21 +6,25 @@ export function setupPanel(container) {
   container.innerHTML = '<div class="info">type `help` to get started.</div>';
 
   let renderToken = 0;
-  let currentEntries = [];
 
-  // 复制 + 加频率 + 闪烁
+  // 点击处理：复制值 + 增加频率 + 闪烁
   container.addEventListener('click', (e) => {
     const div = e.target.closest('.entry');
     if (!div || !container.contains(div)) return;
 
-    const item = currentEntries[Number(div.dataset.i)];
-    if (!item) return;
+    // 直接从 DOM 上取数据，不再依赖外部数组
+    const key = div.dataset.key;
+    const value = div.dataset.value;
+    if (key === undefined || value === undefined) return;
 
-    copyText(item.v);
-    addFreq(item.k);
+    copyText(value);
+    addFreq(key);
 
+    // 点击闪烁
     div.style.opacity = '0.55';
-    setTimeout(() => { div.style.opacity = ''; }, 200);
+    setTimeout(() => {
+      div.style.opacity = '';
+    }, 150);
   });
 
   function append(x) {
@@ -32,10 +36,8 @@ export function setupPanel(container) {
 
     const entries = x;
     const token = ++renderToken;
-    currentEntries = entries;
-
     let i = 0;
-    const batchSize = 400; // 每次渲染 400 条
+    const batchSize = 400;
 
     function step() {
       if (token !== renderToken) return;
@@ -47,7 +49,11 @@ export function setupPanel(container) {
         const e = entries[i];
         const div = document.createElement('div');
         div.className = 'entry';
-        div.dataset.i = String(i);
+
+        // 将键和值直接写入 dataset
+        div.dataset.key = e.k;
+        div.dataset.value = e.v;
+
         div.innerHTML = `<span class="key">${escapeHTML(e.k)}</span>  ${escapeHTML(e.v)}`;
         frag.appendChild(div);
       }
@@ -66,7 +72,6 @@ export function setupPanel(container) {
 
   append.clear = () => {
     renderToken++;
-    currentEntries = [];
     container.innerHTML = '';
   };
 
