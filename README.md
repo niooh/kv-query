@@ -131,23 +131,38 @@ npm run build:bin  # output to dist/kv_query
 ./dist/kv_query <command> [terms]
 ```
 
-| Command | Description |
-|---------|-------------|
-| `-h` | Show help |
-| `ls` | List all entries |
-| `-s [terms]` | Strict match, OR logic |
-| `-sa [terms]` | Strict match, AND logic |
-| `-c [terms]` | Contains match, OR logic |
-| `-ca [terms]` | Contains match, AND logic |
+### Commands
+
+| Command           | Description                                      |
+|-------------------|--------------------------------------------------|
+| `-h`              | Show help                                        |
+| `ls`              | List all entries (original order)                 |
+| `<mode> [terms]`  | Run query directly (prints results)               |
+| `c <mode> [terms]`| Query, then copy selected value to clipboard using OSC 52 |
+
+### Modes
+
+`<mode>` must be one of:
+
+| Mode   | Match type | Logic |
+|--------|------------|-------|
+| `-s`   | Strict     | OR    |
+| `-sa`  | Strict     | AND   |
+| `-c`   | Contains   | OR    |
+| `-ca`  | Contains   | AND   |
 
 ### Example
 
 ```
 $ ./dist/kv_query -s fruit
-  apple | fruit | red : A sweet red fruit
-  banana | fruit | yellow : A long yellow fruit
-  tomato | fruit | red | vegetable : Botanically a fruit, culinarily a vegetable
-  grape | fruit | purple : Small round fruit for wine
+  apple | fruit | red  A sweet red fruit
+  banana | fruit | yellow  A long yellow fruit
+  tomato | fruit | red  vegetable : Botanically a fruit, culinarily a vegetable
+  grape | fruit | purple  Small round fruit for wine
+
+$ ./dist/kv_query c -c yellow
+  1 banana | fruit | yellow  A long yellow fruit
+Copied.
 ```
 
 The terminal CLI does not edit data; it queries a pre‑compiled index built from `data/raw.nim`.
