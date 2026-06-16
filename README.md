@@ -11,7 +11,7 @@ This project handles exactly those scenarios: ***get the results you want with m
 
 - Easy-to-write key-value entries, e.g., `"tag1 | tag2" value`
 - Strict or partial keyword search with AND/OR logic
-- High performance: supports rapid querying and rendering of tens of thousands of entries.
+- High performance: rapid querying and rendering of tens of thousands of entries.
 - **Web UI**: single HTML with a command-line-like interface.
 - **Terminal CLI**: single native binary.
 > **Note:** The Web UI and Terminal CLI are independent, optional interfaces — you do not need to set up both.
@@ -87,7 +87,7 @@ Type commands into the input box, then results appear below.
 | `export` | Download as `.txt` or copy to clipboard |
 
 Click on a result value to copy it to the clipboard and increase its frequency automatically, and most‑used entries will rise to the top.<br>
-Use `help <command>` (e.g. `help edit`) to see full details and examples for each command.
+Use `help <cmd>` (e.g. `help edit`) to see full details and examples for each command.
 
 #### Text format for `edit / import / export`
 
@@ -128,17 +128,17 @@ npm run build:bin  # output to dist/kv_query
 ### Usage
 
 ```bash
-./dist/kv_query <command> [terms]
+./dist/kv_query <cmd> [terms]
 ```
 
 ### Commands
 
-| Command           | Description                                      |
-|-------------------|--------------------------------------------------|
-| `-h`              | Show help                                        |
-| `ls`              | List all entries (original order)                 |
-| `<mode> [terms]`  | Run query directly (prints results)               |
-| `c <mode> [terms]`| Query, then copy selected value to clipboard using OSC 52 |
+| Command           | Description      |
+|-------------------|------------------|
+| `-h`              | Show help        |
+| `ls`              | List all entries |
+| `<mode> [terms]`  | Query and print results directly |
+| `c <mode> [terms]`| Query and copy selected value to clipboard using OSC 52 |
 
 ### Modes
 
