@@ -3,7 +3,7 @@
  */
 export function parseCommand(line: string = ''):
   { name: string; args: string[] } {
-  const args = tokenize(line.trim());
+  const args = tokenize(line);
   return { name: args[0] || '', args: args.slice(1) };
 }
 

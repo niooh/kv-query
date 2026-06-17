@@ -1,4 +1,4 @@
-import { parseKVText, escapeKVKey } from './kvFormat.ts';
+import { parseKVText } from './kvFormat.ts';
 import { KV_DATA } from '../../data/raw.js';
 
 /**
@@ -21,14 +21,19 @@ let cachedIndex: { m: Record<string, number[]>; k: string[] } | null = null; // 
 
 /**
  * 生成默认原始文本（首次使用时调用）
- * 将扁平行数组 KV_DATA 转换为 "key" value 格式的多行文本
+ * 将扁平行数组 KV_DATA 转换为 "key" value 格式文本
  */
 function defaultRawText(): string {
   const lines: string[] = [];
   for (let i = 0; i < KV_DATA.length; i += 2) {
     const k = KV_DATA[i];
     const v = KV_DATA[i + 1];
-    lines.push(`"${escapeKVKey(k)}" ${v}`);
+    // k 需要 stringify 避免 \n 造成格式错误
+    if (v.includes('\n')) {
+      lines.push(`${JSON.stringify(k)} \`\`\`\n${v}\n\`\`\``);
+    } else {
+      lines.push(`${JSON.stringify(k)} ${v}`);
+    }
   }
   return lines.join('\n');
 }

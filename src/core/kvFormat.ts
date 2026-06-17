@@ -52,11 +52,6 @@ export function escapeKVKey(key: string): string {
   return key.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }
 
-/** 将键值格式化为一行 "key" value */
-export function formatKVEntry(key: string, value: string): string {
-  return `"${escapeKVKey(key)}" ${value}`;
-}
-
 // 解析核心
 
 /**
