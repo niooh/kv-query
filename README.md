@@ -117,6 +117,10 @@ The web UI stores its data (entries + frequencies) in `localStorage`. On first l
 
 ## Terminal CLI (Standalone executable)
 
+### Notes
+- This terminal CLI does not edit data; it queries a pre‑compiled index built from `data/raw.nim`.
+- Only basic features are provided here. If you want more intelligent features, such as auto-building after editing, and treat the copy function as a priority, see the [kv-copy](https://github.com/niooh/kv-copy) project.
+
 ### Build
 
 You need Nim ≥ 2.0.0 (e.g. Version 2.2.6) installed.
@@ -164,8 +168,6 @@ $ ./dist/kv_query c -c yellow
   1 banana | fruit | yellow  A long yellow fruit
 Copied.
 ```
-
-The terminal CLI does not edit data; it queries a pre‑compiled index built from `data/raw.nim`.
 
 ---
 
