@@ -219,3 +219,16 @@ export function parseFullText(fullText: string): ParsedFullText {
     invalidLines: [...tagInvalid, ...freqInvalid],
   };
 }
+
+/** 用于将 entries 数组导出为美观成对形式，带 trailing comma */
+export function formatFlatArray(arr: string[], indent: number = 2) {
+  const pad = ' '.repeat(indent);
+  let result = '[\n';
+  for (let i = 0; i < arr.length; i += 2) {
+    const group = arr.slice(i, i + 2); // slice 会自动截取到末尾
+    result += `${pad}${
+      group.map(x => JSON.stringify(x)).join(', ')
+    },\n`;
+  }
+  return `${result}]`;
+}

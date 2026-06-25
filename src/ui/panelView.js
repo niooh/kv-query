@@ -1,6 +1,6 @@
 import { addFreq } from '../core/data.ts';
 import { escapeHTML } from '../core/kvFormat.ts';
-import { copyText } from './utils.ts';
+import { copyText } from './dom.ts';
 
 export function setupPanel(container) {
   container.innerHTML = '<div class="info">type `help` to get started.</div>';

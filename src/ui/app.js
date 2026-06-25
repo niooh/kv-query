@@ -2,7 +2,7 @@ import { addFreq, load } from '../core/data.ts';
 import { escapeHTML } from '../core/kvFormat.ts';
 import { runCommand } from '../cli/commands.ts';
 import { setupPanel } from './panelView.js';
-import { copyText } from './utils.ts';
+import { copyText } from './dom.ts';
 
 export function createApp(root) {
   const state = { logs: [] };

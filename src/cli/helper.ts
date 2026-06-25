@@ -106,17 +106,21 @@ examples:
   
   export: {
     summary: 'export data as text',
-    usage: 'export [-f | -c]',
+    usage: 'export [-f | -c | -e]',
     desc: `default: -f
 
 options:
-  -f     download as kv_data_YYYY-MM-DD.txt
+  -f     export full data as kv_data_YYYY-MM-DD.txt
+  -e     export entries as flat JS array, omitting frequencies
   -c     copy to clipboard
 
 examples:
   export
-  export -c`,
+  export -c
+  export -e
+  export -e -c`,
   },
+  
 };
 
 export function usageOf(name: string): string {

@@ -13,8 +13,8 @@ import {
   mergeFreq,
 } from '../core/data.ts';
 import { search } from '../core/query.ts';
-import { escapeHTML, escapeKVKey, parseFullText } from '../core/kvFormat.ts';
-import { copyText, downloadText, pickTextFile } from '../ui/utils.ts';
+import { escapeHTML, escapeKVKey, parseFullText, formatFlatArray } from '../core/kvFormat.ts';
+import { copyText, downloadText, pickTextFile } from '../ui/dom.ts';
 
 // 应用上下文接口
 export interface App {
@@ -143,17 +143,37 @@ async function cmdImport(app: App, args: string[]) {
 
 // 导出命令
 function cmdExport(app: App, args: string[]) {
+  const date = new Date().toISOString().slice(0, 10);
+
+  // 选项 -e：导出为 flat JS array，不含频率
+  if (args.includes('-e')) {
+    const entries = getEntries();
+    const flat: string[] = [];
+    for (const e of entries) {
+      flat.push(e.k, e.v);
+    }
+    const arrStr = formatFlatArray(flat);
+
+    if (args.includes('-c')) {
+      copyText(arrStr);
+      app.logInfo('copied flat array to clipboard.');
+    } else {
+      downloadText(arrStr, `kv_flat_${date}.js`);
+      app.logInfo(`exported flat array as kv_flat_${date}.js`);
+    }
+    return;
+  }
+
+  // 默认行为：导出完整文本（含频率）
   const freqMap = getFreqMap();
   const entries = getEntries();
 
-  // 构建频率区文本
   const freqLines = Object.entries(freqMap)
     .filter(([, count]) => count > 0)
     .map(([k, count]) => `"${escapeKVKey(k)}" ${count}`);
   
-  // 拼接：原始文本 + --- + 频率行
   const fullText = getRawEntries() + '\n---\n' + freqLines.join('\n');
-  const filename = `kv_data_${new Date().toISOString().slice(0, 10)}.txt`; // 带 YYYY-MM-DD 后缀
+  const filename = `kv_data_${date}.txt`;
   
   if (!args.length || args[0] === '-f') {
     downloadText(fullText, filename);
