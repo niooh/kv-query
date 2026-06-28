@@ -1,10 +1,9 @@
+// summary 描述行为，desc 描述详细细节，不与 summary 重复
 export const HELP: Record<string, any> = {
   get: {
     summary: 'get entries by searching tags',
     usage: 'get <option> [terms]',
-    desc: `alias: g
-
-options:
+    desc: `options:
   -a     list all entries, sorted by access frequency
   -s     strict match, OR logic
   -sa    strict match, AND logic
@@ -15,18 +14,16 @@ notes:
   strict mode matches whole tags (split by " | ")
   contains mode matches any substring in tags
 
+  \`[terms]\` refer to one or more keywords separated by spaces
+
+shortcuts:
+  you can omit the \`get\` prefix and just type \`-c, -s, -ca, -sa\` directly.
+
 examples:
   get -a
   get -s fruit
   get -sa fruit red
   get -ca vegetable red`,
-  },
-
-  g: {
-    summary: 'alias for get',
-    usage: 'g <option> [terms]',
-    desc: `notes:
-  \`help get\` for full details.`,
   },
 
   ls: {
@@ -121,6 +118,27 @@ examples:
   export -e -c`,
   },
   
+  '-c': {
+    summary: 'shortcut for `get -c`',
+    usage: '-c [terms]',
+    desc: 'notes: contains match, OR logic',
+  },
+  '-s': {
+    summary: 'shortcut for `get -s`',
+    usage: '-s [terms]',
+    desc: 'notes: strict match, OR logic',
+  },
+  '-ca': {
+    summary: 'shortcut for `get -ca`',
+    usage: '-ca [terms]',
+    desc: 'notes: contains match, AND logic',
+  },
+  '-sa': {
+    summary: 'shortcut for `get -sa`',
+    usage: '-sa [terms]',
+    desc: 'notes: strict match, AND logic',
+  },
+
 };
 
 export function usageOf(name: string): string {

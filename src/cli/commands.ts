@@ -210,8 +210,12 @@ export async function runCommand(app: App, line: string) {
     }
 
     switch (name) {
-      case 'get': case 'g':
+      case 'get':
         cmdGet(app, args);
+        break;
+      case '-c': case '-s':
+      case '-ca': case '-sa':
+        cmdGet(app, [name, ...args]);
         break;
       case 'help':
         cmdHelp(app, args);
