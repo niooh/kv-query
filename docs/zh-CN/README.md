@@ -43,6 +43,8 @@ const KV_DATA* = [
 ];
 ```
 
+如果不打算修改初始数据，你可以直接从 [Releases 页面](https://github.com/niooh/kv-query/releases/) 下载预构建的版本来试用这个工具。请注意，这些构建版本可能不是最新的。
+
 ---
 
 ## Web UI（浏览器使用）

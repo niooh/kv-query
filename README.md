@@ -43,6 +43,8 @@ const KV_DATA* = [
 ];
 ```
 
+If you don't want to modify the initial data yourself, you can directly download pre-built versions from the [Releases Page](https://github.com/niooh/kv-query/releases/) to try out the tool. Note that these builds may not be up to date.
+
 ---
 
 ## Web UI (Browser)
