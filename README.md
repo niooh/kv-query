@@ -171,21 +171,4 @@ Copied.
 
 ## Contribute
 
-If you'd like to contribute to the codebase, please follow these steps:
-
-1. Fork the repository and create your feature branch:
-   ```bash
-   git checkout -b new-feature
-   ```
-
-2. Commit your changes with a clear message (e.g., using [Conventional Commits](https://www.conventionalcommits.org/)):
-   ```bash
-   git commit -m "feat: add some feature"
-   ```
-
-3. Push to your branch:
-   ```bash
-   git push origin new-feature
-   ```
-
-4. Open a Pull Request. Make sure to review the pull request template at `.github/PULL_REQUEST_TEMPLATE.md` before submitting.
+If you want to contribute to this codebase, please read the [Contributing Guide](./.github/CONTRIBUTING.md).
