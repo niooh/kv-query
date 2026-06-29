@@ -3,7 +3,6 @@
   <br>
   English | <a href="./docs/zh-CN/README.md">简体中文</a>
 </p>
-<h1 align="center">kv-query</h1>
 
 A lightweight key-value query tool for storing and searching entries using a simple text format.<br>
 The most common search pattern is known to be direct **key -> value** lookup. In practice, though, you often need multiple keys to point to one value, one key to match several values, or even a partial match on the key.<br>
