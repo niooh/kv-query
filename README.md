@@ -1,10 +1,12 @@
 <p align="center">
   <img src="docs/figures/logo.png" alt="kv-query logo" width="160px"/>
+  <br>
+  English | <a href="./docs/zh-CN/README.md">简体中文</a>
 </p>
 <h1 align="center">kv-query</h1>
 
 A lightweight key-value query tool for storing and searching entries using a simple text format.<br>
-The most common search pattern is a direct **key -> value** lookup. In practice, though, you often need multiple keys to point to one value, one key to match several values, or even a partial match on the key.<br>
+The most common search pattern is known to be direct **key -> value** lookup. In practice, though, you often need multiple keys to point to one value, one key to match several values, or even a partial match on the key.<br>
 This project handles exactly those scenarios: ***get the results you want with minimal typing while keeping your mental model simple***.
 
 ## Features
@@ -14,7 +16,7 @@ This project handles exactly those scenarios: ***get the results you want with m
 - High performance: rapid querying and rendering of tens of thousands of entries.
 - **Web UI**: single HTML with a command-line-like interface.
 - **Terminal CLI**: single native binary.
-> **Note:** The Web UI and Terminal CLI are independent, optional interfaces — you do not need to set up both.
+> **Note:** The Web UI and Terminal CLI are independent, optional interfaces. You do not need to set up both.
 
 ## Data source
 
@@ -106,7 +108,7 @@ Line 2
 
 - The section above `---` contains key‑value entries (single or multi‑line).
 - The section below `---` is the frequency data (only shown for entries with frequency > 0).
-- The key is double‑quoted and supports escaped characters (e.g. `\"`, `\\`).
+- The key is double‑quoted and supports escaped characters, e.g., `\"`, `\\`.
 - Values start right after the closing quote and a single space, and can contain any characters.
 
 ### Data persistence
@@ -118,7 +120,7 @@ The web UI stores its data (entries + frequencies) in `localStorage`. On first l
 ## Terminal CLI (Standalone executable)
 
 ### Notes
-- This terminal CLI does not edit data; it queries a pre‑compiled index built from `data/raw.nim`.
+- At runtime, this terminal CLI cannot edit data, it only queries a pre-compiled index built from `data/raw.nim`.
 - Only basic features are provided here. If you want more intelligent features, such as auto-building after editing, and treat the copy function as a priority, see the [kv-copy](https://github.com/niooh/kv-copy) project.
 
 ### Build
