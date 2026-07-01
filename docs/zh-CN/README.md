@@ -122,7 +122,7 @@ Web UI 将其数据（条目 + 频率）存储在 `localStorage` 中。首次启
 
 ### 注意
 - 此终端 CLI 在运行时不可编辑数据，只查询一个由 `data/raw.nim` 构建的预编译索引。
-- 这里仅提供基本功能。如果您想要更智能的特性，例如编辑后自动重构建，并视复制功能为优先项，请查看 [kv-copy](https://github.com/niooh/kv-copy) 项目。
+- 这里仅提供基本功能。如果你想要更智能的特性，例如编辑后自动重构建，并视复制功能为优先项，请查看 [kv-copy](https://github.com/niooh/kv-copy) 项目。
 
 ### 构建
 
