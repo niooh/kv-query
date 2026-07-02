@@ -201,7 +201,7 @@ export async function runCommand(app: App, line: string) {
   const { name, args } = parseCommand(line);
   if (!name) return;
 
-  app.log(`<div class="cmd">&gt; ${escapeHTML(line)}</div>`); // 回显命令
+  app.log(`<div class="cmd">${escapeHTML(line)}</div>`); // 回显命令，利用伪元素增加 > 前缀
 
   try {
     if (name !== 'help' && args.includes('-h')) {
