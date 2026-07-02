@@ -16,8 +16,8 @@ notes:
 
   \`[terms]\` refer to one or more keywords separated by spaces
 
-shortcuts:
-  you can omit the \`get\` prefix and just type \`-c, -s, -ca, -sa\` directly.
+alias:
+  you can omit the \`get -\` prefix and just type \`c, s, ca, sa\` directly.
 
 examples:
   get -a
@@ -118,24 +118,24 @@ examples:
   export -e -c`,
   },
   
-  '-c': {
-    summary: 'shortcut for `get -c`',
-    usage: '-c [terms]',
+  c: {
+    summary: 'alias for `get -c`',
+    usage: 'c [terms]',
     desc: 'notes: contains match, OR logic',
   },
-  '-s': {
-    summary: 'shortcut for `get -s`',
-    usage: '-s [terms]',
+  s: {
+    summary: 'alias for `get -s`',
+    usage: 's [terms]',
     desc: 'notes: strict match, OR logic',
   },
-  '-ca': {
-    summary: 'shortcut for `get -ca`',
-    usage: '-ca [terms]',
+  ca: {
+    summary: 'alias for `get -ca`',
+    usage: 'ca [terms]',
     desc: 'notes: contains match, AND logic',
   },
-  '-sa': {
-    summary: 'shortcut for `get -sa`',
-    usage: '-sa [terms]',
+  sa: {
+    summary: 'alias for `get -sa`',
+    usage: 'sa [terms]',
     desc: 'notes: strict match, AND logic',
   },
 
@@ -160,7 +160,7 @@ export function commandHelpText(name: string) {
 
 usage:
   ${item.usage}
-  ${item.desc}`;
+\n${item.desc}`;
 }
 
 export function allHelpText(): string {

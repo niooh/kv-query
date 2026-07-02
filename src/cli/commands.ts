@@ -205,7 +205,7 @@ export async function runCommand(app: App, line: string) {
 
   try {
     if (name !== 'help' && args.includes('-h')) {
-      app.log(`<div class="help">${escapeHTML(commandHelpText(name))}</div>`);
+      app.logInfo(commandHelpText(name));
       return;
     }
 
@@ -213,9 +213,9 @@ export async function runCommand(app: App, line: string) {
       case 'get':
         cmdGet(app, args);
         break;
-      case '-c': case '-s':
-      case '-ca': case '-sa':
-        cmdGet(app, [name, ...args]);
+      case 'c': case 's':
+      case 'ca': case 'sa':
+        cmdGet(app, ['-' + name, ...args]);
         break;
       case 'help':
         cmdHelp(app, args);
