@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync, existsSync, unlinkSync, rmSync, readdirSync } from 'fs';
+import htmlclean from 'htmlclean';
 
 let html = readFileSync('dist/index.html', 'utf8');
 
@@ -43,5 +44,6 @@ if (existsSync(assetsDir)) {
   } catch {}
 }
 
-writeFileSync('dist/index.html', html);
+// 清理 html 多余空白
+writeFileSync('dist/index.html', htmlclean(html, { protect: /<\/script\s*>/i }));
 console.log('✓ Post-build done');

@@ -6,5 +6,6 @@ export default defineConfig({
     outDir: '../dist',
     emptyOutDir: true,
     minify: 'oxc',
+    minifyHTML: true,
   }
 });
