@@ -56,14 +56,14 @@ You need Node.js ≥ 22.18.0 installed.
 ```bash
 # git clone https://github.com/niooh/kv-query.git && cd kv-query/
 
-npm install
-npm run dev  # open http://localhost:5173
+pnpm install
+pnpm run dev  # open http://localhost:5173
 ```
 
 ### Build
 
 ```bash
-npm run build  # output to dist/index.html
+pnpm run build  # output to dist/index.html
 ```
 
 The build inlines all assets into a single `index.html` that can run offline.
@@ -129,7 +129,7 @@ The web UI stores its data (entries + frequencies) in `localStorage`. On first l
 You need Nim ≥ 2.0.0 (e.g. Version 2.2.6) installed.
 
 ```bash
-npm run build:bin  # output to dist/kv_query
+pnpm run build:bin  # output to dist/kv_query
 ```
 
 ### Usage

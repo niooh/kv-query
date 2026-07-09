@@ -12,7 +12,7 @@
     "build": "node scripts/build_index.js && vite build && node scripts/postbuild.js",
     "build:index": "node scripts/build_index.js",
     "build:bin": "nim c -d:release --out:dist/kv_query --mm:orc --passL:\"-s\" src/terminal/main.nim",
-    "build:nim": "npm run translate && npm run build:bin",
+    "build:nim": "pnpm run js2nim && pnpm run build:bin",
     "build:txt": "nim r scripts/build_test_txt_for_web_ui.nim",
     "js2nim": "node scripts/js_data_to_nim.js",
     "nim2js": "nim r scripts/nim_data_to_js.nim",
@@ -21,8 +21,6 @@
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
-    "html-minifier-terser": "^7.2.0",
-    "terser": "^5.46.2",
     "typescript": "^6.0.3",
     "vite": "^8.0.16"
   },

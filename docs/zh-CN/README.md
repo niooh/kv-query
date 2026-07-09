@@ -56,14 +56,14 @@ const KV_DATA* = [
 ```bash
 # git clone https://github.com/niooh/kv-query.git && cd kv-query/
 
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 ### 构建
 
 ```bash
-npm run build  # 输出到 dist/index.html
+pnpm run build  # 输出到 dist/index.html
 ```
 
 这会将所有资源内联到单个 `index.html`，可离线运行。
@@ -129,7 +129,7 @@ Web UI 将其数据（条目 + 频率）存储在 `localStorage` 中。首次启
 需要安装 Nim ≥ 2.0.0（例如 2.2.6 版）。
 
 ```bash
-npm run build:bin  # 输出到 dist/kv_query
+pnpm run build:bin  # 输出到 dist/kv_query
 ```
 
 ### 使用方法

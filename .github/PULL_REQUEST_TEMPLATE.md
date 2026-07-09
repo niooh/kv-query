@@ -3,7 +3,7 @@
   Before submitting, please:
   - Fork and branch from `main`
   - Add tests if needed
-  - Run `npm run build`, `npm run check`, `npm run build:bin` to ensure they run properly
+  - Run `pnpm run build`, `pnpm run check`, `pnpm run build:bin`, `pnpm run query` to ensure they run properly
 -->
 
 ## Summary

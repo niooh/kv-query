@@ -4,8 +4,8 @@ If you'd like to contribute to the codebase, please follow these steps:
    ```bash
    git fetch upstream && git checkout main && git rebase upstream/main
    git checkout -b new-feature
-   npm install
-   # after modifying, run `npm run check`, `npm run build`, `npm run build:bin` to ensure they run properly
+   pnpm install
+   # after modifying, run `pnpm run check`, `pnpm run build`, `pnpm run build:bin` to ensure they run properly
    ```
 
 2. Commit your changes with a clear message, using [Conventional Commits](https://www.conventionalcommits.org/):
